@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
 import { IProduct } from "./product";
 
@@ -7,14 +7,22 @@ import { IProduct } from "./product";
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.css"]
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent {
   pageTitle: string = "Product List";
   imageWidth: number = 50;
   imageMargin: number = 5;
   showImage: boolean = false;
-  listFilter: string = "cart";
 
-  filterProducts: IProduct[];
+  _listFilter: string;
+  get listFilter(): string {
+    return this._listFilter;
+  }
+  set listFilter(value) {
+    this._listFilter = value;
+    this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+  }
+
+  filteredProducts: IProduct[];
 
   products: IProduct[] = [
     {
@@ -69,11 +77,22 @@ export class ProductListComponent implements OnInit {
     }
   ];
 
-  toggleImage(): void {
-    this.showImage = !this.showImage;
+  constructor() {
+    this.filteredProducts = this.products;
+    this.listFilter = '';
   }
 
-  ngOnInit(): void {
-    console.log('ngOnInit');
+  performFilter(filterBy: string): IProduct[] {
+    // change the filter keyword to lowercase
+    filterBy = filterBy.toLocaleLowerCase();
+
+    // return a filtered IProduct array
+    return this.products.filter((product: IProduct) => {
+      return product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1;
+    });
+  }
+
+  toggleImage(): void {
+    this.showImage = !this.showImage;
   }
 }

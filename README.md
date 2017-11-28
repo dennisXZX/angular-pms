@@ -1,6 +1,6 @@
 # Product Management System
 
-Powered by Angular CLI and Bootstrap.
+Powered by Angular and Bootstrap.
 
 ## Steps
 - run `npm install` to install the dependencies
