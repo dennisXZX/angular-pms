@@ -1,7 +1,8 @@
 <div class="crop" 
-    [style.width.px]="starWidth"
-    [title]="rating">
-    <div style="width: 86px">
+    [style.width.px]="starContainerWidth"
+    [title]="rating"
+    (click)="onClick()">
+    <div [style.width.px]="starWidth">
         <span class="glyphicon glyphicon-star"></span>
         <span class="glyphicon glyphicon-star"></span>
         <span class="glyphicon glyphicon-star"></span>
