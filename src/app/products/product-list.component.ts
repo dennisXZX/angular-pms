@@ -52,18 +52,16 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // load products from service
+    // load products from service, which returns an observable
     this._productService.getProducts()
-        .subscribe(
-          products => {
-            this.products = products;
-            this.filteredProducts = this.products;
-          },
-          error => {
-            this.errorMessage = <any>error;
-          }
-        );
-
-
+      .subscribe(
+        products => {
+          this.products = products;
+          this.filteredProducts = this.products;
+        },
+        error => {
+          this.errorMessage = <any>error;
+        }
+      );
   }
 }
